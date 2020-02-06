@@ -1,0 +1,118 @@
+mkdir ~/share
+
+sudo mount -t vboxsf ubuntu ~/share
+sudo mount -t vboxsf D_DRIVE ~/share 
+chmod -R a+rws AIK-Linux
+chmod -R a+rws Ramdisk
+
+
+Nhánh trong git
+Khi sử dụng Git, bạn có thể tạo ra nhiều nhánh (branch) khác nhau. Câu lệnh Git này dùng để kiểm tra branch hiện tại:
+
+$ git branch
+Để tạo mới một branch:
+
+ $ git branch <name_branch>
+Để chuyển và tạo mới:
+
+ $ git branch -b <name_branch>
+Chuyển nhánh
+Trước khi muốn thay đổi source code, điều đầu tiên mà bạn cần phải làm là checkout một nhánh. Để checkout một nhánh, bạn dùng câu lệnh Git sau:
+
+$ git checkout <name_branch>
+
+
+Gộp nhánh
+Sau một thời gian cập nhật các file và push lên git trên branch mới, bây giờ mình cần ghép (merge) code lại vào nhánh gốc (master). Trước tiên, cần phải checkout ra khỏi branch hiện tại cần gộp để vào branch master, sau đó thì dùng lệnh merge để ghép branch mới vào master:
+
+$ git checkout master
+$ git merge <new_branch>
+
+https://viblo.asia/p/nhung-lenh-git-co-ban-can-nho-V3m5W1OyZO7
+
+
+Tổng hợp các lệnh thường dùng
+
+I. Các lệnh quản lí tập tin:
+1. Tạo tập tin và thư mục:
+cp  file1 file2                        chép tập tin file1 sang file2
+cp  file /folfer                      chép tập tin file vào thư mục folder
+cp -r folder1 folder2          chép toàn bộ nội dung của thư mục folder1 vào folder2
+rsync -a folder1 folder2   đồng bộ nội dung thư mục « folder1» sang thư mục « folder2»
+mv file1 file2                        chuyển tên tập tin file1 thành tên file2
+mv folder1 folder2              chuyển tên thư mục folder1 thành folder2
+mv file folder                       chuyển tập tin file vào thư mục folder
+mv file1 folder2/file2         chuyển file1 vào thư mục thư mục folder2 đồng thời đổi tên tập tin thành file2
+mkdir folder                        tạo ra thư mục folder
+mkdir -p folder1/folder2  tạo ra thư mục cha folder1 và thư mục con folder2 cùng lúc
+rm file                                     xóa bỏ tập tin file trong thư mục hiện hành
+rmdir folder                         xóa bỏ thư mục trống mang tên folder
+rm -rf folder                         xóa bỏ thư mục mang tên folder với tất cả các tập tin trong thư mục
+ln -s file link                         tạo ra một liên kết mang tên link đến tập tin file (nối tắt)
+find folder -name file         tìm tập tin mang tên file trong thư mục folder kể cả trong các thư mục con
+diff file1 file2                        so sánh nội dung của 2 tập tin hoặc của 2 thư mục
+
+2. Xem và chỉnh sửa nội dung các tập tin văn bản:
+cat file                                    xem nội dung của tập tin file trên màn hình ở dạng mã ASCII
+more file                               xem nội dung của tập tin file trên màn hình theo chế độ từng trang một : ấn phím « Enter » để xuống 1 dòng; ấn phím « Space » để sang thêm 1 trang ; ấn phím « q » để thoắt.
+less file                               « less » giống như « more », nhưng cho phép dùng phím [Page Down]
+head -n file                        xem số n dòng đầu tiên của tập tin file
+tail -n file                           xem số n dòng cuối cùng của file
+vi file                                    soạn tập tin file dùng trình soạn vi
+nano file                             soạn tập tin file dùng trình soạn nano
+gedit file                             soạn tập tin file dùng trình soạn gedit
+
+grep keyword file             tìm và hiển thị các dòng chứa từ keyword trong tập tin file
+grep -r string folder        tìm nội dung string trong tất cả các tập tin có trong thư mục folder
+lệnh > file                            ghi kết quả của lệnh lệnh trong tập tin file
+lệnh >> file                         bổ sung kết quả của lệnh lệnh ở phần cuối của tập tin file
+
+3. Di chuyển, liệt kê tập tin và thư mục:
+pwd                                     hiển lên tên thư mục đang làm việc hiện hành
+cd                                         di chuyển sang thư mục « /home/người_dùng »
+cd ~ /Desktop                   di chuyển sang thư mục « /home/người_dùng/Desktop »
+cd ..                                     di chuyển sang thư mục cha (ngay trên thư mục hiện hành)
+cd /usr/apt                       di chuyển sang thư mục « /usr/apt »
+ls -l                                      folder liệt kê danh mục tập tin trong thư mục folder
+ls -a                                     liệt kê tất cả các tập tin, kể cả các tập tin ẩn (thường có tên bắt đầu bằng một dấu chấm)
+ls -d                                    liệt kê tên các thư mục nằm trong thư mục hiện hành
+ls -t                                     xếp lại các tập tin theo ngày đã tạo ra, bắt đầu bằng những tập tin mới nhất
+ls -S                                    xếp lại các tập tin theo kích thước, từ to nhất đến nhỏ nhất
+ls -l | more                      liệt kê theo từng trang một, nhờ tiện ích « more »
+dir                                      giống như lệnh ls dùng để liệt kê tập tin và thư mục
+
+4. Nén và giải nén tập tin và thư mục:
+tar xvf archive.tar           giải phóng các tập tin có trong tập tin « archive.tar », đồng thời hiển thị các tên tập tin
+tar xvfz archive.tar.gz           giải nén các tập tin có trong tập tin « archive.tar.gz » dùng « gzip » và « tar »
+tar jxvf archive.tar.bz2          giải nén các tập tin có trong tập tin « archive.tar.bz2 » dùng « bzip » và « tar »
+tar cvf archive.tar file1 file2   tạo ra một tập tin archive.tar chứa các tập tin file1, file2
+tar cvfz archive.tar.gz folder  tạo một tập tin « archive.tar.gz » dùng « gzip » để chứa toàn bộ thư mục folder
+gzip file.txt                                   tạo tập tin nén « file.txt» sang « file.txt.gz»
+gunzip file.txt.gz                        giải nén tập tin « file.txt.gz »
+bzip2 file.txt                                tạo tập tin nén « file.txt.bz2 »
+bunzip2 file.txt.bz2                   giải nén tập tin « file.txt.bz2 »
+
+5. Thiết lập quyền truy cập tập tin thư mục:
+chown username                      file xác định người chủ của tập tin file là người dùng mang tên « username »
+chown -R username folder    xác định người chủ của thư mục folder, kể cả các thư mục con (-R) là người dùng « username»
+chgrp group file                        chuyển tập tin file thành sở hữu của nhóm người dùng mang tên group
+chmod u+x file                        giao (+) quyền thực thi (x) tập tin file cho người dùng (u)
+chmod g-w                               file loại bỏ (-) quyền ghi (w) file của nhóm (g)
+chmod o-r file                         loại bỏ (-) quyền đọc (r) tập tin file của những người dùng khác (o)
+chmod a+rw file                    giao (+) quyền đọc (r) và ghi (w) file cho mọi người (a)
+chmod -R a+rws a6          giao (+) quyền đọc (r) và vào bên trong thư mục (x) folder, kể cả tất cả các thư mục con của nó (-R), cho tất cả mọi người (a)
+
+II. Các lệnh quản lí hệ thống:
+1. Các lệnh quản lí cơ bản:
+sudo command                       thực hiện lệnh command với tư cách người siêu dùng (root)
+gksudo command                  giống với sudo nhưng dùng cho các ứng dụng đồ hoạ
+sudo -k                                     chấm dứt chế độ dùng lệnh có chức năng của người siêu dùng
+uname -r                                 cho biết phiên bản của nhân Linux
+shutdown -h now                khởi động lại máy tính ngay lập tức
+lsusb                                         liệt kê các thiết bị usb có mặt trong máy tính
+lspci                                          liệt kê các thiết bị pci có trên máy tính
+time command                    cho biết thời gian cần thiết để thực hiện xong lệnh command
+command1 | command2   chuyển kết quả của lệnh command1 làm đầu vào của lệnh command2
+clear                                         xoá màn hình của cửa sổ « Thiết bị cuối » (terminal)
+
+
